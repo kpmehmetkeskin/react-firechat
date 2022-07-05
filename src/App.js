@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import Wmap from './components/Wmap';
 // Firebase deps
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -8,6 +9,8 @@ import { useAuthState, useDarkMode } from './hooks';
 // Components
 import Channel from './components/Channel';
 import Loader from './components/Loader';
+
+
 
 firebase.initializeApp({
   apiKey: "AIzaSyAlwgnETafa0JFgAWYfbPnEe1BycLlF5a8",
@@ -143,38 +146,44 @@ function App() {
         </div>
       </div>
     );
-  };
-
+  }
   return (
-    <div className="flex flex-col h-full bg-white dark:bg-coolDark-500 dark:text-white transition-colors">
-      <header
-        className="flex-shrink-0 flex items-center justify-between px-4 sm:px-8 shadow-md"
-        style={{ height: 'var(--topbar-height)' }}
-      >
-        <a href="https://alterclass.io/courses/react">
-          <img src={brandLogo} alt="AlterClass" width={150} />
-        </a>
-        <div className="flex items-center">
-          {user ? (
-            <button
-              onClick={signOut}
-              className="uppercase text-sm font-medium text-primary-500 hover:text-white tracking-wide hover:bg-primary-500 bg-transparent rounded py-2 px-4 mr-4 focus:outline-none focus:ring focus:ring-primary-500 focus:ring-opacity-75 transition-all"
-            >
-              Sign out
-            </button>
-          ) : null}
-          <ThemeIcon
-            className="h-8 w-8 cursor-pointer"
-            onClick={() => setDarkMode(prev => !prev)}
-          />
+    <div>
+      <div className='mapContainer'>
+        <Wmap/>
+      </div>
+      <div className='chatContainer'>
+        <div className="flex flex-col h-full bg-white dark:bg-coolDark-500 dark:text-white transition-colors">
+          <header
+            className="flex-shrink-0 flex items-center justify-between px-4 sm:px-8 shadow-md"
+            style={{ height: 'var(--topbar-height)' }}
+          >
+            <a href="https://alterclass.io/courses/react">
+              <img src={brandLogo} alt="AlterClass" width={150} />
+            </a>
+            <div className="flex items-center">
+              {user ? (
+                <button
+                  onClick={signOut}
+                  className="uppercase text-sm font-medium text-primary-500 hover:text-white tracking-wide hover:bg-primary-500 bg-transparent rounded py-2 px-4 mr-4 focus:outline-none focus:ring focus:ring-primary-500 focus:ring-opacity-75 transition-all"
+                >
+                  Sign out
+                </button>
+              ) : null}
+              <ThemeIcon
+                className="h-8 w-8 cursor-pointer"
+                onClick={() => setDarkMode(prev => !prev)}
+              />
+            </div>
+          </header>
+          <main
+            className="flex-1"
+            style={{ maxHeight: 'calc(100% - var(--topbar-height))' }}
+          >
+            {renderContent()}
+          </main>
         </div>
-      </header>
-      <main
-        className="flex-1"
-        style={{ maxHeight: 'calc(100% - var(--topbar-height))' }}
-      >
-        {renderContent()}
-      </main>
+      </div>
     </div>
   );
 }
