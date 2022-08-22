@@ -24,15 +24,6 @@ const Message = ({
 
   return (
     <div className="px-4 py-4 rounded-md hover:bg-gray-50 dark:hover:bg-coolDark-600 overflow-hidden flex items-start">
-      {photoURL ? (
-        <img
-          src={photoURL}
-          alt="Avatar"
-          className="rounded-full mr-4"
-          width={45}
-          height={45}
-        />
-      ) : null}
       <div>
         <div className="flex items-center mb-1">
           {displayName ? (
