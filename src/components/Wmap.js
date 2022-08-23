@@ -3,6 +3,7 @@ import L from 'leaflet';
 import { Map, TileLayer, Popup, Marker } from 'react-leaflet';
 import '../App.css';
 import 'leaflet/dist/leaflet.css';
+import Chat from './Chat';
 
 import nationalParks from '../national-parks.json';
 
@@ -67,15 +68,22 @@ function App() {
     }, [])
 
     return (
-        <div className="App">
-            <Map ref={mapRef} center={[39.50, -98.35]} zoom={4}>
-                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; <a href=&quot;https://www.openstreetmap.org/copyright&quot;>OpenStreetMap</a> contributors" />
-                <Marker position={[51.505, -0.09]}>
-                    <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
-                    </Popup>
-                </Marker>
-            </Map>
+        <div>
+            <div className='mapContainer'>
+                <div className="App">
+                    <Map ref={mapRef} center={[39.50, -98.35]} zoom={4}>
+                        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; <a href=&quot;https://www.openstreetmap.org/copyright&quot;>OpenStreetMap</a> contributors" />
+                        <Marker position={[51.505, -0.09]}>
+                            <Popup>
+                                A pretty CSS3 popup. <br /> Easily customizable.
+                            </Popup>
+                        </Marker>
+                    </Map>
+                </div>
+            </div >
+            <div className='chatContainer'>
+                <Chat/>
+            </div>
         </div>
     );
 }
