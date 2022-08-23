@@ -82,7 +82,7 @@ function App() {
                 </div>
             </div >
             <div className='chatContainer'>
-                <Chat/>
+                <Chat name={'asdasd'}/>
             </div>
         </div>
     );

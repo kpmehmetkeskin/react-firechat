@@ -36,7 +36,8 @@ const SunIcon = props => (
   </svg>
 );
 
-function Chat() {
+function Chat(props) {
+  console.log('Prooooopp' + props.name);
   const { user, initializing } = useAuthState(firebase.auth());
   const [darkMode, setDarkMode] = useDarkMode();
 
@@ -63,7 +64,7 @@ function Chat() {
         className="flex-shrink-0 flex items-center justify-between px-4 sm:px-8 shadow-md"
         style={{ height: 'var(--topbar-height)' }}
       >
-        <p><b>WMapChat</b></p>
+        <p><b>WMapChat {props.name}</b></p>
         <div className="flex items-center">
 
           <ThemeIcon
