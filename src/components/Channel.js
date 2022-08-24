@@ -1,11 +1,16 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import PropTypes from 'prop-types';
 import firebase from 'firebase/app';
 import { useFirestoreQuery } from '../hooks';
 // Components
 import Message from './Message';
+import { MapContext } from '../contexts/MapContext';
 
 const Channel = ({ user = null }) => {
+  console.log('Channele geldi.');
+  const v = useContext(MapContext);
+  console.log('context:', v);
+
   const db = firebase.firestore();
   const messagesRef = db.collection('messages');
   const messages = useFirestoreQuery(
