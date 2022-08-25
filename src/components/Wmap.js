@@ -49,6 +49,7 @@ function App() {
                 layer.bindPopup('<p>' + Name + '</p>').on('click', function (e) {
                     console.log(e.latlng);
                     setOidd(JSON.stringify(e.latlng.lat));
+
                     map.flyTo(e.latlng, map.getZoom());
                 });
 

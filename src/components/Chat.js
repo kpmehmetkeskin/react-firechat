@@ -37,7 +37,6 @@ const SunIcon = props => (
 );
 
 function Chat(props) {
-  console.log('Prooooopp' + props.name);
   const { user, initializing } = useAuthState(firebase.auth());
   const [darkMode, setDarkMode] = useDarkMode();
 
@@ -56,7 +55,7 @@ function Chat(props) {
       );
     }
 
-    return <Channel user={user} />;
+    return <Channel user={user} name={props.oid}/>;
   }
   return (
     <div className="flex flex-col h-full bg-white dark:bg-coolDark-500 dark:text-white transition-colors">

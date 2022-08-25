@@ -6,16 +6,32 @@ import { useFirestoreQuery } from '../hooks';
 import Message from './Message';
 import { MapContext } from '../contexts/MapContext';
 
-const Channel = ({ user = null }) => {
+function Channel ({ user = null }) {
+  const [customersData, setCustomersData] = useState([]);
+
   console.log('Channele geldi.');
-  const v = useContext(MapContext);
-  console.log('context:', v);
+  var v = useContext(MapContext);
+  console.log('v1:', v);
 
   const db = firebase.firestore();
   const messagesRef = db.collection('messages');
-  const messages = useFirestoreQuery(
-    messagesRef.orderBy('createdAt', 'desc').limit(100)
-  );
+
+  const getData = async () => {
+    await messagesRef.where('oid', '==', v).limit(100).get().then(snapshot => {
+      const postData = [];
+      snapshot.forEach((doc) => postData.push({ ...doc.data() }));
+      console.log(postData);  // <------
+      setCustomersData(postData);
+    });
+    console.log('customersData', customersData);
+    return customersData;
+  }
+  
+  const messages = getData();
+  console.log('messages', messages);
+  
+
+
 
   const [newMessage, setNewMessage] = useState('');
 
@@ -46,6 +62,7 @@ const Channel = ({ user = null }) => {
         uid : 'uid101',
         displayName : 'displayName101',
         photoURL : 'photoURL101',
+        oid : v
       });
       // Clear input field
       setNewMessage('');
@@ -68,7 +85,7 @@ const Channel = ({ user = null }) => {
             </p>
           </div>
           <ul>
-            {messages
+            {customersData
               ?.sort((first, second) =>
                 first?.createdAt?.seconds <= second?.createdAt?.seconds ? -1 : 1
               )
